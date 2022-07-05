@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .page-container {
+    @apply flex flex-col;
+  }
+
+  .main-bar {
+    @apply bg-black-static w-screen fixed h-16 flex flex-row items-center justify-between z-10;
+  }
+
+  .nav-title {
+    @apply text-white font-work-sans font-extrabold text-3xl justify-self-center mx-auto relative 
+    hover:cursor-pointer hover:text-gray-200;
+  }
+
+  .invisible-menu-align {
+    @apply w-[64px];
+  }
+
+  .close-menu-btn {
+    @apply text-white mx-4 my-auto justify-self-start;
+  }
+
+  .hamburger-btn {
+    @apply text-white hover:text-gray-200 mx-4 my-auto justify-self-start;
+  }
+  
+  .menuNav {
+      @apply absolute text-white w-[250px] flex flex-col h-screen mt-3.5 scale-x-0 bg-black-static opacity-80
+      transition-all duration-75 origin-top-left;
+  }
+
+  .showMenu {
+      @apply scale-100;
+  }
+
+  .menuDropdown {
+    @apply mt-2;
+  }
+
+  .menu-item-link {
+    @apply text-white text-sm font-work-sans font-medium my-2 hover:cursor-pointer;
+  }
+
+  .dropdown {
+    @apply grid grid-cols-[25px_225px]
+    font-work-sans font-medium text-2xl;
+  }
+
+  .dropdownHeader {
+    @apply col-start-1 col-end-3 flex flex-row;
+  }
+
+  .chevronClass {
+    @apply text-accent text-white align-self-center fixed;
+  }
+
+  .additionalChevronStyles {
+    @apply w-4 h-4 self-center ml-2;
+  }
+
+  .menuItem {
+    @apply col-start-1 col-end-3
+    ml-[33px];
+  }
+
+  .admin-login-btn {
+    @apply fixed mr-[15px] ml-[78%] mt-[338%] text-right font-work-sans font-medium text-xs 
+    hover:cursor-pointer hover:text-blue-300;
+  }
+
+  .contentContainer {
+    @apply min-h-screen bg-cover bg-no-repeat bg-fixed
+     flex flex-row flex-wrap pt-[100px] pb-[30px] overflow-auto px-3;
+  }
+
+  .centerItems {
+    @apply justify-center items-center;
+  }
+
+  .albumLink {
+    @apply h-[250px] w-[250px] bg-cover mx-3 my-3 flex items-center justify-center;
+  }
+
+  .audio-icon {
+    @apply text-white opacity-70 hover:opacity-90;
+  }
+
+  .band-member-btns {
+    @apply flex flex-row justify-center items-center p-2 flex-wrap
+  }
+
+  .band-member {
+    @apply w-[150px] h-[150px] bg-cover hover:opacity-90 hover:cursor-pointer ml-4 mt-4;
+  }
+
+  .about-band-btn {
+    @apply w-[325px] h-[86px] bg-cover bg-black border-8 border-black rounded p-2 hover:cursor-pointer self-start my-8;
+  }
+
+  .description-box {
+    @apply w-[50%] bg-black-static min-w-[310px] font-work-sans font-extrabold border-[8px] text-xl 
+    rounded-3xl text-white p-4 self-center text-center mb-10;
+  }
+
+  .cover-name {
+    @apply mx-5 mt-3 p-2 text-center font-work-sans font-extrabold text-white bg-black-static bg-cover border-[4px] rounded-lg;
+  }
+
+  .login-box {
+    @apply bg-black-static bg-cover w-[500px] h-[350px] mb-40 border-[8px] border-gray-900 
+    rounded-3xl flex flex-col justify-center;
+  }
+
+  .login-field {
+    @apply w-[90%] h-[30px] my-[15px] ml-[5%] font-work-sans font-bold pl-2 rounded-lg;
+  }
+
+  .login-submit-btn {
+    @apply bg-black text-white text-[12pt] font-extrabold font-work-sans border-white border-[4px] 
+    h-[50px] w-[80px] self-center mb-auto rounded-lg hover:opacity-70;
+  }
+
+  .dashboard-container {
+    @apply h-screen w-[100%] bg-gray-700 pt-16 flex flex-row-reverse;
+  }
+
+  .admin-dashboard-nav {
+    @apply py-2 border-l-[2px] border-gray-800 w-[350px] h-[100%] bg-gray-700
+    font-work-sans text-[#121212] font-semibold px-4 overflow-hidden;
+  }
+
+  .admin-menu-item-link {
+    @apply text-[#121212] hover:text-white;
+  }
+
+  .centered-dash-page {
+    @apply flex w-[100%] centerItems;
+  }
+
+  .top-dash-page {
+    @apply w-[100%];
+  }
+}
+
+form {
+  @apply h-[350px] w-[500px] flex flex-row flex-wrap mb-[200px] 
+  bg-black-static border-[8px] rounded-3xl border-white p-8 justify-center font-work-sans text-[12pt];
+}

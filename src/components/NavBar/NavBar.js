@@ -126,9 +126,9 @@ const InternalMenuDropdown = ({ header, selections }) => {
                             if(index === 0) {
                                 return <InternalMenuItem selection={selection} key={selection} linkName="music-player"/>
                             } else if (index === 1) {
-                                return <InternalMenuItem selection={selection} key={selection} linkName="covers"/>
+                                return <InternalMenuItem selection={selection} key={selection} linkName="covers-player"/>
                             } else if (index === 2) {
-                                return <InternalMenuItem selection={selection} key={selection} linkName=""/>
+                                return <InternalMenuItem selection={selection} key={selection} linkName="about"/>
                             }
                         })
                     }
@@ -143,7 +143,7 @@ const AdminAccess = () => {
     //I will be the only admin and will only be doing admin work on a desktop.
 
     return (
-        <Link to="/admin" className='admin-login-btn'> 
+        <Link to="/admin/login" className='admin-login-btn'> 
             ADMIN
         </Link>
     );

@@ -3,70 +3,28 @@ import PlayerContent from './components/PlayerContent/PlayerContent';
 import AboutContent from './components/AboutContent/AboutContent';
 import CoversContent from './components/CoversContent/CoversContent';
 import AdminContent from './components/AdminContent/AdminContent';
-import { useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  Navigate
 } from 'react-router-dom';
 
+import { LoginBox } from './components/AdminContent/AdminContent';
+import Dashboard from './components/AdminContent/Dashboard';
+
 function App() {
-  const voidState = { player: false, about: false, covers: false, adminLogin: false}
-  const [currPage, setCurrPage] = useState({...voidState, about: true});
-
-  const setPageToAboutScreen = () => {
-    setCurrPage({...voidState, about: true});
-  }
-
-  const setPageToPlayerScreen = () => {
-    setCurrPage({...voidState, player: true});
-  }
-
-  const setPageToCoversScreen = () => {
-    setCurrPage({...voidState, covers: true});
-  }
-
-  const setPageToAdminLoginScreen = () => {
-    setCurrPage({...voidState, adminLogin: true});
-  }
-
-  const updatePageArr = [setPageToPlayerScreen, setPageToCoversScreen, setPageToAboutScreen]; //preserve order for nav links to work
-
-  let display;
-  if (currPage.player) {
-    display = 
-      <div className='page-container'>
-        <NavBar handleTitleClick={setPageToCoversScreen} pageNavFuncs={updatePageArr} adminLogin={setPageToAdminLoginScreen} />
-        <PlayerContent /> 
-      </div>
-  } else if (currPage.about) {
-    display = 
-      <div className='page-container'>
-        <NavBar handleTitleClick={setPageToPlayerScreen} pageNavFuncs={updatePageArr} adminLogin={setPageToAdminLoginScreen} />
-        <AboutContent />
-      </div>;
-  } else if (currPage.covers) {
-    display =
-      <div>
-        <NavBar handleTitleClick={setPageToAboutScreen} pageNavFuncs={updatePageArr} adminLogin={setPageToAdminLoginScreen} />
-        <CoversContent />
-      </div>
-  } else if (currPage.adminLogin) {
-    display = 
-      <div>
-        <NavBar handleTitleClick={setPageToAboutScreen} pageNavFuncs={updatePageArr} adminLogin={setPageToAdminLoginScreen} />
-        <AdminContent />
-      </div>
-  }
-
   return (
     <Router>
       <Routes>
-        <Route index element={<><NavBar titleLinkName='music-player'/><AboutContent /></>} />
-        <Route path="/music-player" element={<><NavBar titleLinkName='covers'/><PlayerContent /></>} />
-        <Route path="/covers" element={<><NavBar titleLinkName='' /><CoversContent /></>} />
-        <Route path="/admin" element={<><NavBar titleLinkName=''/><AdminContent /></>} />
+        <Route path="/" element={<Navigate to="/about" replace />} />
+        <Route path="/about" element={<><NavBar titleLinkName='music-player'/><AboutContent /></>} />
+        <Route path="/music-player" element={<><NavBar titleLinkName='covers-player'/><PlayerContent /></>} />
+        <Route path="/covers-player" element={<><NavBar titleLinkName='about' /><CoversContent /></>} />
+        <Route path="/admin" element={<AdminContent />} >
+          <Route path="login" element={<LoginBox />} />
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
     </Router>
   );

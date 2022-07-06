@@ -2,8 +2,10 @@ import { MdPauseCircleFilled } from 'react-icons/md';
 import { FaPlayCircle } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import useDocumentTitle from '../../hooks/useDocumentTitle.js';
 
 const CoversContent = () => {
+    useDocumentTitle('Covers -- The Killers Music Player')
     const [audioControls, setAudioControls] = useState({src: ''});
     const [coverList, setCoverList] = useState([]);
     const coverColors = [ 'bg-steel-blue', 'bg-vegas-yellow', 'bg-mocha-brown', 'bg-bb-black', 'bg-pearly-white', 'bg-amber-wave'];
@@ -58,12 +60,16 @@ const CoversContent = () => {
     } 
 
     return (
-        <div className='contentContainer bg-itm-band-photo bg-[center_10px] centerItems'>
+        <div>
+            <div className='bg-itm-band-photo background-image'/>
+            <div className='contentContainer centerItems'>
             <AudioPlayer src={audioControls.src} handleEnded={stopAllPlaying} />
             {coverList.map((cover, index) => {
                 return <CoverLink color={cover.color} image={cover.image_url} onClick={() => handleClick(index, cover.cover_id)} musicPlaying={cover.playing} coverName={cover.cover_name} key={cover.cover_name} />
             })}
         </div>
+        </div>
+        
     )
 }
 

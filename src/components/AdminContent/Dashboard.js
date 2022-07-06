@@ -13,14 +13,14 @@ import CoversPlayCountPage from './DashboardPages/CoversPlayCountPage';
 import UpdateCoverPage from './DashboardPages/UpdateCoverPage';
 import RemoveCoverPage from './DashboardPages/RemoveCoverPage';
 import {useOutletContext, useNavigate} from 'react-router-dom';
+
 const Dashboard = () => {
-    const {serverKey, loggedIn} = useOutletContext();
+    const {serverKey, authed} = useOutletContext();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!loggedIn) {
+        if(!authed) {
             navigate('/admin/login');
-            
         }
     }, []);
     
@@ -152,12 +152,23 @@ const Dashboard = () => {
 }
 
 const RightSideNav = ({ resetDash, albumLinksStateUpdate, albumSongsStateUpdate, coverLinksStateUpdate }) => {
+    const { logout, forgetKey } = useOutletContext();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout().then(() => {
+            forgetKey();
+            navigate('/admin/login');
+        })
+    }
+
     return (
         <nav className='admin-dashboard-nav'>
             <h2 className='mt-8 hover:cursor-pointer' onClick={() => resetDash()}>MENU</h2>
             <MenuDropdown header='BAND ALBUM LINKS' selections={['ADD ALBUM', 'VIEW ALBUMS', 'UPDATE ALBUM INFO', 'REMOVE ALBUM']} updateFunctions={albumLinksStateUpdate} />
             <MenuDropdown header='BAND ALBUM SONGS' selections={['ADD SONG', 'VIEW SONGS', 'UPDATE SONG INFO', 'REMOVE SONG']} updateFunctions={albumSongsStateUpdate} />
             <MenuDropdown header='PERSONAL COVER LINKS' selections={['ADD COVER','GET PLAY COUNT', 'UPDATE COVER INFO', 'REMOVE COVER']} updateFunctions={coverLinksStateUpdate} />
+            <button className='mt-2 ml-[33px] text-[14pt] font-medium' onClick={handleLogout}>LOGOUT</button>
         </nav>
     )
 }

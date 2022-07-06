@@ -2,7 +2,8 @@ import { HiOutlineMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const albumNames = ['HOT FUSS', "SAM'S TOWN", 'SAWDUST', 'DAY & AGE', 
     'BATTLE BORN', 'WONDERFUL WONDERFUL', 'IMPLODING THE MIRAGE', 'PRESSURE MACHINE'];
@@ -127,7 +128,7 @@ const InternalMenuDropdown = ({ header, selections }) => {
                                 return <InternalMenuItem selection={selection} key={selection} linkName="music-player"/>
                             } else if (index === 1) {
                                 return <InternalMenuItem selection={selection} key={selection} linkName="covers-player"/>
-                            } else if (index === 2) {
+                            } else {
                                 return <InternalMenuItem selection={selection} key={selection} linkName="about"/>
                             }
                         })
@@ -142,10 +143,21 @@ const AdminAccess = () => {
     //This component will be invisible on mobile devices due to margins. This is desirable.
     //I will be the only admin and will only be doing admin work on a desktop.
 
+    const navigate = useNavigate()
+    const {authed} = useAuth();
+
+    const handleClick = () => {
+        if(authed) {
+            navigate('/admin/dashboard');
+        } else { //this logic is always hit because it does not have access to outletContext. How to fix?
+            navigate('/admin/login');
+        }
+    }
+
     return (
-        <Link to="/admin/login" className='admin-login-btn'> 
+        <button onClick={handleClick} className='admin-login-btn'> 
             ADMIN
-        </Link>
+        </button>
     );
 }
 

@@ -7,9 +7,10 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate
+  Navigate,
+  useLocation,
+  useOutletContext,
 } from 'react-router-dom';
-
 import { LoginBox } from './components/AdminContent/AdminContent';
 import Dashboard from './components/AdminContent/Dashboard';
 
@@ -23,11 +24,18 @@ function App() {
         <Route path="/covers-player" element={<><NavBar titleLinkName='about' /><CoversContent /></>} />
         <Route path="/admin" element={<AdminContent />} >
           <Route path="login" element={<LoginBox />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<RequireAuth children={<Dashboard />} />} />
         </Route>
       </Routes>
     </Router>
   );
+}
+
+const RequireAuth = ({ children }) => {
+  const { authed } = useOutletContext();
+  const location = useLocation();
+
+  return authed === true ? children : <Navigate to='/admin/login' replace state={{ path: location.pathname }} />;
 }
 
 export default App;

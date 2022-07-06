@@ -216,7 +216,8 @@ module.exports = {
 
     getAllAlbums: (req, res) => {
         sequelize.query(`
-            SELECT * FROM albums`)
+            SELECT * FROM albums
+            ORDER BY display_order`)
         .then(dbRes => {
             res.status(200).send(dbRes[0]);
         })

@@ -274,7 +274,7 @@ module.exports = {
                         UPDATE albums SET ${columnNames} = ${updateValues}
                         WHERE album_id = ${album_id}
                         RETURNING *`)
-                    .then(() => {
+                    .then(dbRes => {
                         if (dbRes[1].rowCount > 0) {
                             res.status(200).send('Album information successfully updated. Go to "View Albums" in nav to see it.');
                         } else {

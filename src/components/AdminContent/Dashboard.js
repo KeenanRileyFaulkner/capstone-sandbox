@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
-import {useOutletContext, useNavigate, Outlet, Link} from 'react-router-dom';
+import {useOutletContext, useNavigate, Outlet, Link } from 'react-router-dom';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+
 const Dashboard = () => {
     const {serverKey, authed, logout, forgetKey} = useOutletContext();
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Dashboard = () => {
     return (
         <div className="dashboard-container">
             <RightSideNav logout={logout} forgetKey={forgetKey} />
-            <Outlet context={{serverKey}} />
+            <Outlet context={{serverKey, authed}} />
         </div>
     )
 }

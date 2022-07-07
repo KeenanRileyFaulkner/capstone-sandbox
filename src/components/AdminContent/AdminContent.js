@@ -3,7 +3,7 @@ import axios from 'axios';
 import Dashboard from './Dashboard';
 import useDocumentTitle from '../../hooks/useDocumentTitle.js';
 import NavBar from '../NavBar/NavBar';
-import {Outlet, useOutletContext, useNavigate } from 'react-router-dom'
+import {Outlet, useOutletContext, useNavigate, useLocation } from 'react-router-dom'
 
 
 
@@ -33,6 +33,7 @@ const AdminContent = ({ authed, login, logout }) => {
 export const LoginBox = () => {
     const {passKeyUp, authed, login} = useOutletContext();
     const navigate = useNavigate();
+    const { state } = useLocation();
 
     useEffect(() => {
         if(authed) {
@@ -53,7 +54,7 @@ export const LoginBox = () => {
             .then(res => {
                 login().then(() => {
                     passKeyUp(res.data);
-                    navigate("/admin/dashboard");
+                    navigate(state?.path || "/admin/dashboard");
                 });
             })
             .catch(err => {

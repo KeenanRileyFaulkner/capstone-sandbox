@@ -2,7 +2,7 @@ import { HiOutlineMenu } from 'react-icons/hi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const albumNames = ['HOT FUSS', "SAM'S TOWN", 'SAWDUST', 'DAY & AGE', 
     'BATTLE BORN', 'WONDERFUL WONDERFUL', 'IMPLODING THE MIRAGE', 'PRESSURE MACHINE'];
@@ -142,12 +142,13 @@ const AdminAccess = ({authed}) => {
     //This component will be invisible on mobile devices due to margins. This is desirable.
     //I will be the only admin and will only be doing admin work on a desktop.
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleNavigation = () => {
         if(authed) {
-            navigate('/admin/dashboard');
+            navigate(location.pathname);
         } else {
-            console.log('not authed');
+            console.log('not authed')
             navigate('/admin/login');
         }
     }

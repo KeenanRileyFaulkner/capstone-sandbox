@@ -1,6 +1,10 @@
 import axios from 'axios';
+import { useOutletContext } from 'react-router-dom';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
-const UpdateAlbumPage = ({ serverKey }) => {
+const UpdateAlbumPage = () => {
+    const {serverKey} = useOutletContext();
+    useDocumentTitle('Update Album In DB -- Admin');
     return (
         <div className="centered-dash-page">
             <UpdateAlbumForm serverKey={serverKey} />

@@ -3,7 +3,6 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
 
 const albumNames = ['HOT FUSS', "SAM'S TOWN", 'SAWDUST', 'DAY & AGE', 
     'BATTLE BORN', 'WONDERFUL WONDERFUL', 'IMPLODING THE MIRAGE', 'PRESSURE MACHINE'];
@@ -31,10 +30,10 @@ const webLinks = [
 
 const pages = ['MUSIC PLAYER', 'COVERS', 'ABOUT THE BAND'];
 
-const NavBar = ({ titleLinkName }) => {
+const NavBar = ({ titleLinkName, authed }) => {
     return (
         <div className='main-bar'>
-            <Menu />
+            <Menu authed={authed} />
             <Link to={`/${titleLinkName}`} className='nav-title'>
                 THE KILLERS
             </Link>
@@ -43,7 +42,7 @@ const NavBar = ({ titleLinkName }) => {
     );
 };
 
-const Menu = () => {
+const Menu = ({authed}) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const handleToggle = () => {
@@ -63,7 +62,7 @@ const Menu = () => {
             <InternalMenuDropdown header='PAGE LINKS' selections={pages} />
             <MenuDropdown header='ALBUMS' selections={albumNames} tagLinks={albumPlaylists} />
             <MenuDropdown header='BAND' selections={links} tagLinks={webLinks} />
-            <AdminAccess />
+            <AdminAccess authed={authed} />
           </ul>
         </nav>
     );
@@ -128,7 +127,7 @@ const InternalMenuDropdown = ({ header, selections }) => {
                                 return <InternalMenuItem selection={selection} key={selection} linkName="music-player"/>
                             } else if (index === 1) {
                                 return <InternalMenuItem selection={selection} key={selection} linkName="covers-player"/>
-                            } else {
+                            } else if (index === 2) {
                                 return <InternalMenuItem selection={selection} key={selection} linkName="about"/>
                             }
                         })
@@ -139,23 +138,22 @@ const InternalMenuDropdown = ({ header, selections }) => {
     );
 }
 
-const AdminAccess = () => {
+const AdminAccess = ({authed}) => {
     //This component will be invisible on mobile devices due to margins. This is desirable.
     //I will be the only admin and will only be doing admin work on a desktop.
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
-    const {authed} = useAuth();
-
-    const handleClick = () => {
+    const handleNavigation = () => {
         if(authed) {
             navigate('/admin/dashboard');
-        } else { //this logic is always hit because it does not have access to outletContext. How to fix?
+        } else {
+            console.log('not authed');
             navigate('/admin/login');
         }
     }
 
     return (
-        <button onClick={handleClick} className='admin-login-btn'> 
+        <button onClick={handleNavigation} className='admin-login-btn'> 
             ADMIN
         </button>
     );

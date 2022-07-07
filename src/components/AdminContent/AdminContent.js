@@ -3,31 +3,29 @@ import axios from 'axios';
 import Dashboard from './Dashboard';
 import useDocumentTitle from '../../hooks/useDocumentTitle.js';
 import NavBar from '../NavBar/NavBar';
-import {Outlet, useOutletContext, useNavigate, useLocation } from 'react-router-dom'
-import {useAuth} from '../../hooks/useAuth.js';
+import {Outlet, useOutletContext, useNavigate } from 'react-router-dom'
 
 
 
 //For all POST, PUT, and DELETE requests made on this page, the user must send a connection string with the request that matches the one in the db.
 
-const AdminContent = () => {
-    useDocumentTitle('Admin -- The Killers Music Player');
-    const {authed, login, logout} = useAuth();
+const AdminContent = ({ authed, login, logout }) => {
+    useDocumentTitle('Login -- Admin');
     const [serverKey, setServerKey] = useState('');
 
     const storeKey = (key) => {
         setServerKey(key);
     }
 
-    const forgetKey = (key) => {
+    const forgetKey = () => {
         setServerKey('');
     }
 
     return (
         <div>
-            <NavBar titleLinkName='about' />
+            <NavBar titleLinkName='about' authed={authed} />
             <Outlet context={{passKeyUp:(key) => storeKey(key), serverKey, authed, login, logout, forgetKey}}/>
-        </div>
+        </div> 
     )
     
 }
@@ -35,17 +33,16 @@ const AdminContent = () => {
 export const LoginBox = () => {
     const {passKeyUp, authed, login} = useOutletContext();
     const navigate = useNavigate();
-    const { state } = useLocation();
 
     useEffect(() => {
         if(authed) {
             navigate('/admin/dashboard');
         }
     }, []);
-
+    
     const loginBody = {};
 
-    const handleLogin = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         let inputs = document.querySelectorAll('input');
         loginBody.username = inputs[0].value;
@@ -54,10 +51,10 @@ export const LoginBox = () => {
         axios
             .post('http://localhost:4002/login', loginBody)
             .then(res => {
-                login().then(() => {                    
+                login().then(() => {
                     passKeyUp(res.data);
-                    navigate(state?.path || "/admin/dashboard");
-                })
+                    navigate("/admin/dashboard");
+                });
             })
             .catch(err => {
                 alert(err.response.data);
@@ -66,19 +63,13 @@ export const LoginBox = () => {
             });
     }
 
-    // useEffect(() => {
-    //     if(authed) {
-    //         navigate('/admin/dashboard');
-    //     }
-    // }, []);
-
     return (
         <div  className={`contentContainer centerItems bg-gray-700 py-0 px-0`}>
-            <form className={`login-box`} onSubmit={handleLogin}>
-                <h2 className='font-work-sans text-white text-center text-[18pt] font-extrabold mb-auto mt-6 justify-self-start'>LOGIN</h2>
-                <input type='text' placeholder='USERNAME' className={`login-field`} />
-                <input type='password' placeholder='PASSWORD' className={`login-field mb-auto`} />
-                <button className='login-submit-btn'>SUBMIT</button>
+            <form className={`login-box`} onSubmit={handleSubmit}>
+            <h2 className='font-work-sans text-white text-center text-[18pt] font-extrabold mb-auto mt-6 justify-self-start'>LOGIN</h2>
+            <input type='text' placeholder='USERNAME' className={`login-field`} />
+            <input type='password' placeholder='PASSWORD' className={`login-field mb-auto`} />
+            <button className='login-submit-btn'>SUBMIT</button>
             </form>
         </div>
         

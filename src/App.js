@@ -3,7 +3,9 @@ import PlayerContent from './components/PlayerContent/PlayerContent';
 import AboutContent from './components/AboutContent/AboutContent';
 import CoversContent from './components/CoversContent/CoversContent';
 import AdminContent from './components/AdminContent/AdminContent';
+import { LoginBox } from './components/AdminContent/AdminContent';
 import Dashboard from './components/AdminContent/Dashboard';
+import {LandingPage} from './components/AdminContent/Dashboard';
 import AddAlbumPage from './components/AdminContent/DashboardPages/AddAlbumPage';
 import ViewAlbumsPage from './components/AdminContent/DashboardPages/ViewAlbumsPage';
 import UpdateAlbumPage from './components/AdminContent/DashboardPages/UpdateAlbumPage';
@@ -16,8 +18,6 @@ import AddCoverPage from './components/AdminContent/DashboardPages/AddCoverPage'
 import CoversPlayCountPage from './components/AdminContent/DashboardPages/CoversPlayCountPage';
 import UpdateCoverPage from './components/AdminContent/DashboardPages/UpdateCoverPage';
 import RemoveCoverPage from './components/AdminContent/DashboardPages/RemoveCoverPage';
-import { LoginBox } from './components/AdminContent/AdminContent';
-import {LandingPage} from './components/AdminContent/Dashboard';
 
 import {
   BrowserRouter as Router,
